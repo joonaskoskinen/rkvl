@@ -1,13 +1,13 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import type { ActivityLevel } from "@/lib/onboarding-store"
+import { ACTIVITY_LABELS, type ActivityLevel } from "@/lib/onboarding-store"
 
 const LEVELS: { value: ActivityLevel; title: string }[] = [
-  { value: "sedentary", title: "Istumatyö" },
-  { value: "light", title: "Kevyt liikunta" },
-  { value: "moderate", title: "Kohtalainen liikunta" },
-  { value: "active", title: "Runsas liikunta" },
+  { value: "sedentary", title: ACTIVITY_LABELS.sedentary },
+  { value: "light", title: ACTIVITY_LABELS.light },
+  { value: "moderate", title: ACTIVITY_LABELS.moderate },
+  { value: "active", title: ACTIVITY_LABELS.active },
 ]
 
 export function StepActivity({

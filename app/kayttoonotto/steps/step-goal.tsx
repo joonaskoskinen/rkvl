@@ -1,12 +1,12 @@
 "use client"
 
 import { cn } from "@/lib/utils"
-import type { Goal } from "@/lib/onboarding-store"
+import { GOAL_LABELS, type Goal } from "@/lib/onboarding-store"
 
 const GOALS: { value: Goal; title: string }[] = [
-  { value: "lose", title: "Pudottaa painoa" },
-  { value: "gain", title: "Kasvattaa lihasta" },
-  { value: "maintain", title: "Ylläpitää painoa" },
+  { value: "lose", title: GOAL_LABELS.lose },
+  { value: "gain", title: GOAL_LABELS.gain },
+  { value: "maintain", title: GOAL_LABELS.maintain },
 ]
 
 export function StepGoal({ value, onChange }: { value: Goal | null; onChange: (goal: Goal) => void }) {

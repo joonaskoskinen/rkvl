@@ -61,7 +61,7 @@ export default function RootLayout({
   return (
     <html lang="fi" className="bg-background">
       <body className={`${geist.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
-        <TooltipProvider delayDuration={200}>{children}</TooltipProvider>
+        <TooltipProvider delay={200}>{children}</TooltipProvider>
         <Toaster />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

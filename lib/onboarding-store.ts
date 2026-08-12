@@ -2,6 +2,19 @@ export type Goal = "lose" | "maintain" | "gain"
 export type ActivityLevel = "sedentary" | "light" | "moderate" | "active"
 export type Sex = "female" | "male"
 
+export const GOAL_LABELS: Record<Goal, string> = {
+  lose: "Pudottaa painoa",
+  gain: "Kasvattaa lihasta",
+  maintain: "Ylläpitää painoa",
+}
+
+export const ACTIVITY_LABELS: Record<ActivityLevel, string> = {
+  sedentary: "Istumatyö",
+  light: "Kevyt liikunta",
+  moderate: "Kohtalainen liikunta",
+  active: "Runsas liikunta",
+}
+
 export type OnboardingAnswers = {
   goal: Goal | null
   sex: Sex | null
@@ -63,5 +76,31 @@ export function estimateMacros(calories: number, goal: Goal | null) {
     protein: Math.round((calories * proteinRatio) / 4),
     fat: Math.round((calories * fatRatio) / 9),
     carbs: Math.round((calories * carbRatio) / 4),
+  }
+}
+
+const STORAGE_KEY = "ruokavalio.onboardingAnswers"
+
+/**
+ * Persists the completed onboarding answers to localStorage so the rest of the
+ * app (dashboard, profile, etc.) can build a real daily target instead of demo data.
+ */
+export function saveOnboardingAnswers(answers: OnboardingAnswers) {
+  if (typeof window === "undefined") return
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(answers))
+  } catch {
+    // Storage might be unavailable (private mode, quota, etc.) — fail silently.
+  }
+}
+
+export function loadOnboardingAnswers(): OnboardingAnswers | null {
+  if (typeof window === "undefined") return null
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY)
+    if (!raw) return null
+    return { ...defaultOnboardingAnswers, ...JSON.parse(raw) } as OnboardingAnswers
+  } catch {
+    return null
   }
 }

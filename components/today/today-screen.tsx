@@ -6,7 +6,8 @@ import { AnimatePresence, motion } from "motion/react"
 import { ArrowLeft, Check, Sparkles } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { dailyTarget, eatenSoFar, nextMealSuggestions, todayMeals } from "@/lib/demo-data"
+import { eatenSoFar, nextMealSuggestions, todayMeals } from "@/lib/demo-data"
+import { useOnboardingProfile } from "@/lib/use-onboarding-profile"
 import type { Meal } from "@/lib/types"
 
 type View = "list" | "detail" | "swap" | "ask"
@@ -22,6 +23,7 @@ export function TodayScreen() {
   const [view, setView] = useState<View>("list")
   const [activeMealId, setActiveMealId] = useState<string | null>(null)
   const [suggestion, setSuggestion] = useState(nextMealSuggestions[0])
+  const { dailyTarget } = useOnboardingProfile()
 
   const activeMeal = useMemo(() => todayMeals.find((m) => m.id === activeMealId) ?? null, [activeMealId])
 
@@ -51,6 +53,7 @@ export function TodayScreen() {
           >
             <ListView
               remaining={remaining}
+              targetKcal={dailyTarget.kcal}
               onOpenMeal={openMeal}
               onAskWhatToEat={() => setView("ask")}
             />
@@ -109,10 +112,12 @@ export function TodayScreen() {
 
 function ListView({
   remaining,
+  targetKcal,
   onOpenMeal,
   onAskWhatToEat,
 }: {
   remaining: number
+  targetKcal: number
   onOpenMeal: (meal: Meal) => void
   onAskWhatToEat: () => void
 }) {
@@ -142,7 +147,7 @@ function ListView({
           transition={{ duration: 0.5, delay: 0.15 }}
           className="text-sm text-muted-foreground"
         >
-          {eatenSoFar.kcal.toLocaleString("fi-FI")} / {dailyTarget.kcal.toLocaleString("fi-FI")} kcal ·{" "}
+          {eatenSoFar.kcal.toLocaleString("fi-FI")} / {targetKcal.toLocaleString("fi-FI")} kcal ·{" "}
           {remaining > 0 ? `${remaining} kcal jäljellä` : "Tavoite saavutettu"}
         </motion.p>
       </div>

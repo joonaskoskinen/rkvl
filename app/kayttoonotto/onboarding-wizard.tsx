@@ -14,6 +14,7 @@ import {
   defaultOnboardingAnswers,
   estimateDailyCalories,
   estimateMacros,
+  saveOnboardingAnswers,
 } from "@/lib/onboarding-store"
 import { StepGoal } from "./steps/step-goal"
 import { StepBodyStats } from "./steps/step-body-stats"
@@ -59,6 +60,11 @@ export function OnboardingWizard() {
   }
 
   const isLastStep = step === TOTAL_STEPS - 1
+
+  function finishOnboarding() {
+    saveOnboardingAnswers(answers)
+    router.push("/dashboard")
+  }
 
   return (
     <div className="flex min-h-svh flex-col bg-background">
@@ -134,7 +140,7 @@ export function OnboardingWizard() {
       <footer className="px-6 py-8 sm:px-10">
         <div className="mx-auto w-full max-w-md">
           {isLastStep ? (
-            <Button size="lg" className="w-full" onClick={() => router.push("/dashboard")}>
+            <Button size="lg" className="w-full" onClick={finishOnboarding}>
               <Check data-icon="inline-start" />
               Siirry omaan ruokavalioon
             </Button>
