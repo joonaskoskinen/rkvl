@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Button } from '@/components/ui/button'
+import { Logo } from '@/components/logo'
 
 const navLinks = [
   { href: '#miten-se-toimii', label: 'Miten toimii' },
@@ -18,8 +19,8 @@ export function SiteHeader() {
       className="fixed inset-x-0 top-0 z-50"
     >
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
-        <Link href="/" className="font-display text-[15px] font-medium tracking-tight text-foreground">
-          ruokaval.io
+        <Link href="/" className="opacity-90 transition-opacity hover:opacity-100">
+          <Logo markClassName="size-7" />
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

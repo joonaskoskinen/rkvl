@@ -28,7 +28,7 @@ export default function SignUpPage() {
             <FieldDescription>Vähintään 8 merkkiä.</FieldDescription>
           </Field>
         </FieldGroup>
-        <Button size="lg" render={<Link href="/kayttoonotto" />}>
+        <Button size="lg" render={<Link href="/kayttoonotto" />} nativeButton={false}>
           Luo tili ja aloita
         </Button>
       </form>

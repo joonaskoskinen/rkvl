@@ -26,7 +26,7 @@ export default function LoginPage() {
             <Input id="password" type="password" required autoComplete="current-password" />
           </Field>
         </FieldGroup>
-        <Button size="lg" render={<Link href="/dashboard" />}>
+        <Button size="lg" render={<Link href="/dashboard" />} nativeButton={false}>
           Kirjaudu sisään
         </Button>
       </form>
